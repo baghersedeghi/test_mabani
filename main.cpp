@@ -67,3 +67,10 @@ void add_new_student() {
         cout << "data saved✅ ";
     }
 };
+void show_student_info(){};
+
+void search_with_num(){};
+
+void delete_student_data(){};
+
+void add_course(){};

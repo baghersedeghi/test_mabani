@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <filesystem> // For std::filesystem
+#include <filesystem>
 
 namespace fs = std::filesystem;
 using namespace std;
@@ -18,49 +18,40 @@ void delete_student_data();
 void add_course(const string &File_Name);
 
 float gpa = 0, all_credits;
-
+int menuChoose;
 int main() {
     menu();
-
-}
-
-void menu() {
-    string choose;
-    cout << "1.Add new  student \n"
-            "2.Show student info \n"
-            "3.Search with student num\n "
-            "4.Delete student data\n"
-            "5.Exit\n";
-
-    cout << "what you  want to do? ";
-    cin >> choose;
-    while (true) {
-        if (choose == "1") {
-            system("cls");
-            add_new_student();
-        } else if (choose == "2") {
-            system("cls");
-            show_student_info();
-        } else if (choose == "3") {
-            system("cls");
-            search_with_num();
-        } else if (choose == "4") {
-            system("cls");
-            delete_student_data();
-        } else if (choose == "5") {
-            system("cls");
-            break;
-        } else {
-            system("cls");
-            menu();
-        }
-        menu();
+    if (menuChoose == 1) {
+        add_new_student();
+    } else if (menuChoose == 2) {
+        show_student_info();
+    } else if (menuChoose == 3) {
+        search_with_num();
+    } else if (menuChoose == 4) {
+        delete_student_data();
+    } else if (menuChoose ==5) {
+        cout << "Exited!";
     }
-
 }
+void menu() {
+    do {
+        system("cls");
+        cout << "1.Add new  student \n"
+                "2.Show student info \n"
+                "3.Search with student num\n "
+                "4.Delete student data\n"
+                "5.Exit\n";
+        cout << "what you  want to do? ";
+        cin >> menuChoose;
+
+    } while (menuChoose != 2 && menuChoose != 1&& menuChoose != 3&&menuChoose != 4&&menuChoose != 5);
+    system("cls");
+}
+
 
 void add_new_student() {
     string student_name, student_number, yes_no;
+
     cout << "student name: ";
     getline(cin >> ws, student_name);
     cout << "student number: ";
@@ -72,7 +63,21 @@ void add_new_student() {
         cout << "\ndo you  want add course ?(y/n)";
         cin >> yes_no;
         if (yes_no == "y")
-            add_course("ST_" + student_number + ".txt");
+        Add_Course :{
+            string text, all,courseName;
+            float credits, grade;
+            cout << "course name :";
+            getline(cin >> ws, courseName);
+            cout << "credits :";
+            cin >> credits;
+            all_credits += credits;
+            cout << "grade :";
+            cin >> grade;
+            gpa += (grade * credits);
+            all+= "\nCourse : " + courseName + ", Credits: " + to_string(credits) + ", Grade:" + to_string(grade);
+            myFile<<all;
+            myFile.close();
+        }
         else
             break;
     }
@@ -140,29 +145,7 @@ void delete_student_data() {
 
 void add_course(const string &File_Name) {
 
-    ifstream myFile(File_Name);
-    string text, all;
-    while (getline(myFile, text)) {
-        all += text;
-    }
-    string courseName;
-    float credits, grade;
 
-    cout << "course name :";
-    getline(cin >> ws, courseName);
-    cout << "credits :";
-    cin >> credits;
-    all_credits += credits;
-    cout << "grade :";
-    cin >> grade;
-    gpa += (grade * credits);
-    string temp;
-    temp= "\nCourse : " + courseName + ", Credits: " + to_string(credits) + ", Grade:" + to_string(grade);
-    all +=temp;
-    ofstream file(File_Name);
-    file<<all;
-    file.close();
-    myFile.close();
 
 
 };

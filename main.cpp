@@ -15,10 +15,11 @@ void search_with_num();
 
 void delete_student_data();
 
-void add_course(const string &File_Name);
+void addCourse();
 
 float gpa = 0, all_credits;
 int menuChoose;
+
 int main() {
     menu();
     if (menuChoose == 1) {
@@ -26,25 +27,30 @@ int main() {
     } else if (menuChoose == 2) {
         show_student_info();
     } else if (menuChoose == 3) {
-        search_with_num();
+        addCourse();
     } else if (menuChoose == 4) {
+        search_with_num();
+    } else if (menuChoose == 5) {
         delete_student_data();
-    } else if (menuChoose ==5) {
+    } else if (menuChoose == 6) {
         cout << "Exited!";
     }
 }
+
 void menu() {
     do {
         system("cls");
         cout << "1.Add new  student \n"
                 "2.Show student info \n"
-                "3.Search with student num\n "
-                "4.Delete student data\n"
-                "5.Exit\n";
+                "3.add course to a student\n"
+                "4.Search with student num\n "
+                "5.Delete student data\n"
+                "6.Exit\n";
         cout << "what you  want to do? ";
         cin >> menuChoose;
 
-    } while (menuChoose != 2 && menuChoose != 1&& menuChoose != 3&&menuChoose != 4&&menuChoose != 5);
+    } while (menuChoose != 2 && menuChoose != 1 && menuChoose != 3 && menuChoose != 4 && menuChoose != 5 &&
+             menuChoose != 6);
     system("cls");
 }
 
@@ -59,30 +65,7 @@ void add_new_student() {
 
     ofstream myFile("ST_" + student_number + ".txt");
     myFile << "Student Number : " + student_number + "\nStudent Name : " + student_name;
-    while (true) {
-        cout << "\ndo you  want add course ?(y/n)";
-        cin >> yes_no;
-        if (yes_no == "y")
-        Add_Course :{
-            string text, all,courseName;
-            float credits, grade;
-            cout << "course name :";
-            getline(cin >> ws, courseName);
-            cout << "credits :";
-            cin >> credits;
-            all_credits += credits;
-            cout << "grade :";
-            cin >> grade;
-            gpa += (grade * credits);
-            all+= "\nCourse : " + courseName + ", Credits: " + to_string(credits) + ", Grade:" + to_string(grade);
-            myFile<<all;
-            myFile.close();
-        }
-        else
-            break;
-    }
-    cout << "data saved✅ ";
-
+    cout << "data saved ";
 };
 
 void show_student_info() {
@@ -143,9 +126,39 @@ void delete_student_data() {
     }
 };
 
-void add_course(const string &File_Name) {
+void addCourse() {
+    string student_num;
+    cout << "student Name: ";
+    getline(cin >> ws, student_num);
+    ofstream file("ST_" + student_num + ".txt", ios::app);
+    string data, all_data;
+    while (true) {
+        char y_n;
+        cout << "do you want add course?(y/n) ";
+        cin >> y_n;
+        if (y_n == 'y')
+            if (file.is_open()) {
+                string course;
+                float grade, credits;
+                cout << "course name :";
+                getline(cin >> ws, course);
+                cout << "credits :";
+                cin >> credits;
+                all_credits += credits;
+                cout << "grade :";
+                cin >> grade;
+                gpa += (grade * credits);
+                all_data += "\nCourse : " + course + ", Credits: " + to_string(credits) + ", Grade:" + to_string(grade);
+                file << all_data;
+            } else {
+                cout << "Failed to open the file!" << endl;
+            }
+        else {
+            file << "\n GPA: " + to_string(gpa/all_credits);
 
-
-
-
+            break;
+        }
+    }
+    menu();
+    file.close();
 };

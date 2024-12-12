@@ -1,2 +1,7 @@
 Student Number : 1213232
 Student Name : aosds
+Course : riazi, Credits: 3, Grade:19
+Course : Shimi, Credits: 3, Grade:15
+Course : olum, Credits: 19.000000, Grade:2.000000
+Course : quran, Credits: 3.000000, Grade:19.000000
+ GPA: 19.000000

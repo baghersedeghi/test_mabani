@@ -1,3 +1,0 @@
-Student Number : 121212
-Student Name : alsew
-Course : asadas, Credits: 3.000000, Grade:12.000000
